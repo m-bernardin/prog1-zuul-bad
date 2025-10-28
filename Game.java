@@ -33,24 +33,35 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room entrance, cliff, dave1, secretTunnel, treasureS, puzzle, spikePit, puzzleD, treasureL, treasureM, dave2, megaDave;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        entrance = new Room("You stand at the entrance to a great dungeon.");
+        cliff = new Room("A steep cliff. You fall off and die.");
+        dave1 = new Room("");
+        secretTunnel = new Room("");
+        treasureS = new Room("");
+        puzzle = new Room("");
+        spikePit = new Room("");
+        puzzleD = new Room("");
+        treasureL = new Room("");
+        treasureM = new Room("");
+        dave2 = new Room("");
+        megaDave = new Room("");
+        
         
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        entrance.setExits(dave1, null, cliff, null);
+        cliff.setExits(null, null, null, null);
+        dave1.setExits(puzzle, secretTunnel, entrance, spikePit);
+        secretTunnel.setExits(treasureM, null, null, null);
+        treasureS.setExits(dave2, null, null, null);
+        puzzle.setExits(treasureS, null, null, null);
+        
+        
 
         // start game outside
-        currentRoom = outside;  
+        currentRoom = entrance;  
     }
 
     /**

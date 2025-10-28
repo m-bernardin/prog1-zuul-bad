@@ -24,3 +24,25 @@ project, and how to fix them.
 
 The project 'zuul-better' contains a version of this project with better
 designed class structure. It includes the fixes discussed in the book.
+
+part i:
+q1.
+    - plays a text-based walking simulator
+    - help, quit, go
+    - help prints a list of commands, quit ends the game, and go accepts a second command word to determine which room to go to
+    - 5; outside, pub, office, lab, theatre
+    - [pub]<->[outside]<->[theatre]
+                  ^
+                  |
+                  v
+    - [office]<->[lab]
+q2. 
+    Game: manages game parts, creates the rooms
+    Command: holds the users last command
+    Room: holds data on a single room
+    Parser: gets the users command
+    CommandWords: holds the known command words and checks if a command is valid
+q3. a dungeon crawler, with some sort of final challenge at the end of a series of puzzles, secret passages, and interactions with other characters
+q4. see image in repo
+
+    
