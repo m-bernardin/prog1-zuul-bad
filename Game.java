@@ -54,12 +54,17 @@ public class Game
         entrance.setExits(dave1, null, cliff, null);
         cliff.setExits(null, null, null, null);
         dave1.setExits(puzzle, secretTunnel, entrance, spikePit);
-        secretTunnel.setExits(treasureM, null, null, null);
+        secretTunnel.setExits(treasureM, null, null, dave1);
         treasureS.setExits(dave2, null, null, null);
-        puzzle.setExits(treasureS, null, null, null);
+        puzzle.setExits(treasureS, null, dave1, null);
+        treasureS.setExits(dave2, null, null, null);
+        spikePit.setExits(puzzleD, dave1, null, null);
+        puzzleD.setExits(treasureL, null, null, spikePit);
+        treasureL.setExits(dave2, null, null, null);
+        treasureM.setExits(dave2, null, null, null);
+        dave2.setExits(megaDave, null, null, null);
+        megaDave.setExits(null, null, dave2, null);
         
-        
-
         // start game outside
         currentRoom = entrance;  
     }
@@ -91,22 +96,7 @@ public class Game
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
-        System.out.println();
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
-        }
-        System.out.println();
+        printLocationInfo();
     }
 
     /**
@@ -170,38 +160,23 @@ public class Game
         // Try to leave current room.
         Room nextRoom = null;
         if(direction.equals("north")) {
-            nextRoom = currentRoom.northExit;
+            nextRoom = currentRoom.getExits("north");
         }
         if(direction.equals("east")) {
-            nextRoom = currentRoom.eastExit;
+            nextRoom = currentRoom.getExits("east");
         }
         if(direction.equals("south")) {
-            nextRoom = currentRoom.southExit;
+            nextRoom = currentRoom.getExits("south");
         }
         if(direction.equals("west")) {
-            nextRoom = currentRoom.westExit;
+            nextRoom = currentRoom.getExits("west");
         }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
-            currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
-            System.out.print("Exits: ");
-            if(currentRoom.northExit != null) {
-                System.out.print("north ");
-            }
-            if(currentRoom.eastExit != null) {
-                System.out.print("east ");
-            }
-            if(currentRoom.southExit != null) {
-                System.out.print("south ");
-            }
-            if(currentRoom.westExit != null) {
-                System.out.print("west ");
-            }
-            System.out.println();
+            printLocationInfo();
         }
     }
 
@@ -220,5 +195,25 @@ public class Game
             // signal that we want to quit
             return true;  
         }
+    }
+    
+    public void printLocationInfo()
+    {
+        System.out.println();
+        System.out.println("You are " + currentRoom.getDescription());
+        System.out.print("Exits: ");
+        if(currentRoom.getExits("north") != null) {
+            System.out.print("north ");
+        }
+        if(currentRoom.getExits("east") != null) {
+            System.out.print("east ");
+        }
+        if(currentRoom.getExits("south") != null) {
+            System.out.print("south ");
+        }
+        if(currentRoom.getExits("west") != null) {
+            System.out.print("west ");
+        }
+        System.out.println();
     }
 }
