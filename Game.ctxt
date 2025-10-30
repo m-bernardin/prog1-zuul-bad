@@ -25,4 +25,6 @@ comment7.text=\ \r\n\ Try\ to\ go\ in\ one\ direction.\ If\ there\ is\ an\ exit,
 comment8.params=command
 comment8.target=boolean\ quit(Command)
 comment8.text=\ \r\n\ "Quit"\ was\ entered.\ Check\ the\ rest\ of\ the\ command\ to\ see\r\n\ whether\ we\ really\ quit\ the\ game.\r\n\ @return\ true,\ if\ this\ command\ quits\ the\ game,\ false\ otherwise.\r\n
-numComments=9
+comment9.params=
+comment9.target=void\ printLocationInfo()
+numComments=10

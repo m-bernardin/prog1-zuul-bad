@@ -51,9 +51,8 @@ public class Game
         
         
         // initialise room exits
-        entrance.setExits(dave1, null, cliff, null);
-        cliff.setExits(null, null, null, null);
-        dave1.setExits(puzzle, secretTunnel, entrance, spikePit);
+        entrance.setExit("north", dave1); entrance.setExit("south",cliff);
+        dave1.setExits(puzzle, secretTunnel, entrance, spikePit).setExit("north",puzzle);d1.setExit(
         secretTunnel.setExits(treasureM, null, null, dave1);
         treasureS.setExits(dave2, null, null, null);
         puzzle.setExits(treasureS, null, dave1, null);
@@ -201,19 +200,7 @@ public class Game
     {
         System.out.println();
         System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.getExits("north") != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.getExits("east") != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.getExits("south") != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.getExits("west") != null) {
-            System.out.print("west ");
-        }
+        currentRoom.getExitsString();
         System.out.println();
     }
 }

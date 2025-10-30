@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -15,10 +17,7 @@
 public class Room 
 {
     private String description;
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
+    private HashMap<String,Room> exits;
 
     /**
      * Create a room described "description". Initially, it has no exits. 
@@ -28,6 +27,7 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        exits = new HashMap<>();
     }
 
     /**
@@ -38,20 +38,9 @@ public class Room
      * @param south The south exit.
      * @param west The west exit.
      */
-    public void setExits(Room north, Room east, Room south, Room west) 
+    public void setExit(String direction, Room neighbour) 
     {
-        if(north != null) {
-            northExit = north;
-        }
-        if(east != null) {
-            eastExit = east;
-        }
-        if(south != null) {
-            southExit = south;
-        }
-        if(west != null) {
-            westExit = west;
-        }
+        exits.put(direction,neighbour);
     }
 
     /**
@@ -65,19 +54,44 @@ public class Room
     public Room getExits(String direction)
     {
         if(direction.equals("north")){
-            return northExit;
+            return exits.get("north");
         }
         if(direction.equals("east")){
-            return eastExit;
+            return exits.get("east");
         }
         if(direction.equals("south")){
-            return southExit;
+            return exits.get("south");
         }
         if(direction.equals("west")){
-            return westExit;
+            return exits.get("west");
         }
         return null;
     }
     
-    public getRoomInfo
+    public boolean getExitsBoolean(String direction)
+    {
+        if(getExits("north")!=null){
+            return true;
+        }
+        if(getExits("east")!=null){
+            return true;
+        }
+        if(getExits("south")!=null){
+            return true;
+        }
+        if(getExits("west")!=null){
+            return true;
+        }
+        return false;
+    }
+    
+    public String getExitsString()
+    {
+        String exits = "Exits: ";
+        exits = (getExitsBoolean("north"))?exits+"north ":exits;
+        exits = (getExitsBoolean("east"))?exits+"east ":exits;
+        exits = (getExitsBoolean("south"))?exits+"south ":exits;
+        exits = (getExitsBoolean("west"))?exits+"west ":exits;
+        return exits;
+    }
 }
