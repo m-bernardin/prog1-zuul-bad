@@ -18,6 +18,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Room previousRoom;
+    private Room storedRoom;
     
     /**
      * Create the game and initialise its internal map.
@@ -38,16 +40,16 @@ public class Game
         // create the rooms
         entrance = new Room("at the entrance to a great dungeon.");
         cliff = new Room("at a steep cliff. You fall off and die.");
-        dave1 = new Room("in a large room with a strange man. he introduces himself as Dave.");
+        dave1 = new Room("in a large room with a strange man. He introduces himself as Dave.");
         secretTunnel = new Room("in a narrow tunnel. It seems to go on forever.");
         treasureS = new Room("in a small and barren room. An equally small chest is in the centre of the room.");
         puzzle = new Room("in a the centre of a perplexing room. A series of levers lay before you, they seem to be connecvted to a numberr of lamps on the wall.");
         spikePit = new Room("in a treacherous room. It seems like falling here would certainly spell your doom.");
         puzzleD = new Room("in a the centre of a perplexing room. Strange carvings line the walls, and a series of levers lay before you.");
         treasureL = new Room("in a large room, bedazzled with gems. A large chest stands proudly in the centre.");
-        treasureM = new Room("in a large room. A large chest sits the centre, eolevated on a pedestal");
-        dave2 = new Room(" in a small, cozy room. The same strange man from before is laying on a chair to the side.");
-        megaDave = new Room(" in a giant room, the walls covered in spikes. Dave stands in the middle, panting. His eyes burn with anger.");
+        treasureM = new Room("in a large room. A large chest sits the centre, elevated on a pedestal");
+        dave2 = new Room("in a small, cozy room. The same strange man from before is laying on a chair to the side.");
+        megaDave = new Room("in a giant room, the walls covered in spikes. Dave stands in the middle, panting. His eyes burn with anger.");
         
         
         // initialise room exits
@@ -136,6 +138,9 @@ public class Game
         else if (commandWord.equals("detailedHelp")) {
             System.out.println(parser.detailedHelp());
         }
+        else if (commandWord.equals("back")) {
+            goBack();
+        }
 
         return wantToQuit;
     }
@@ -169,26 +174,15 @@ public class Game
         }
 
         String direction = command.getSecondWord();
-
         // Try to leave current room.
-        Room nextRoom = null;
-        if(direction.equals("north")) {
-            nextRoom = currentRoom.getExits("north");
-        }
-        if(direction.equals("east")) {
-            nextRoom = currentRoom.getExits("east");
-        }
-        if(direction.equals("south")) {
-            nextRoom = currentRoom.getExits("south");
-        }
-        if(direction.equals("west")) {
-            nextRoom = currentRoom.getExits("west");
-        }
+        Room nextRoom = currentRoom.getExits(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
+            previousRoom = currentRoom;
+            currentRoom = nextRoom;
             printLocationInfo();
         }
     }
@@ -210,9 +204,22 @@ public class Game
         }
     }
     
-    public void printLocationInfo()
+    private void printLocationInfo()
     {
         System.out.println(currentRoom.getLongDescription());
         System.out.println(currentRoom.getItemInfo());
+    }
+    
+    private void goBack()
+    {
+        if(previousRoom==null){
+            System.out.println("Nowhere to go back to!");
+        }
+        else{
+            storedRoom=currentRoom;
+            currentRoom=previousRoom;
+            previousRoom=storedRoom;
+        }
+        printLocationInfo();
     }
 }

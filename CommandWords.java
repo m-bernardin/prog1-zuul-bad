@@ -14,7 +14,7 @@ public class CommandWords
 {
     // A constant array that holds all valid command words.
     private static final String[] validCommands = {
-        "go", "quit", "help", "look", "openChest", "detailedHelp"
+        "go", "quit", "help", "look", "openChest", "detailedHelp", "back"
     };
 
     /**
@@ -57,6 +57,9 @@ public class CommandWords
         descriptions.put("help", "Prints a list of available commands");
         descriptions.put("look", "Look around the current room");
         descriptions.put("openChest", "Opens the chest in the current room, if there is one.");
+        //descriptions.put("",""); (format for adding new descriptions)
+        descriptions.put("detailedHelp","Provides a list of commands with a description of each one.");
+        descriptions.put("back","Sends you back to the previous room.");
         for(int i = 0; i<validCommands.length; ++i){
             descriptions.putIfAbsent(validCommands[i], "no description");
         }

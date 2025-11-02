@@ -56,3 +56,16 @@ part ii:
 q19. wasnt aware we had to implement it the other way
 q22. a model for how to implement interaction between the code and the user, and how to represent it, as the name suggets it implements a model (the way information is stored internally), a view (how the information is presented to the user), and the controller (how the two are linked together). its relevant to this project becuase there is a lot of complex internal information which must somehow be neatfully conveyed to the user. It could be implemented by implementing a view class which handles sending all messages to the user
 
+q24. 
+    through a method
+    Item
+    Game
+    first, because the info string should be produced as close to the source as possible, second, because the Game class is the only one which should interact directly with the interface
+q25. like q22, already done
+q27. 
+    no not at all, working to fix it
+    turns out it did work, just doesnt give the room description for some reason
+    so turns out it all worked fine, i just forgot to port what i had done in the processCommand method to the goBack method
+q28. it goes to whatever the previous room before was, looping between two rooms if called many times
+
+
