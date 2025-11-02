@@ -36,33 +36,33 @@ public class Game
         Room entrance, cliff, dave1, secretTunnel, treasureS, puzzle, spikePit, puzzleD, treasureL, treasureM, dave2, megaDave;
       
         // create the rooms
-        entrance = new Room("You stand at the entrance to a great dungeon.");
-        cliff = new Room("A steep cliff. You fall off and die.");
-        dave1 = new Room("");
-        secretTunnel = new Room("");
-        treasureS = new Room("");
-        puzzle = new Room("");
-        spikePit = new Room("");
-        puzzleD = new Room("");
-        treasureL = new Room("");
-        treasureM = new Room("");
-        dave2 = new Room("");
-        megaDave = new Room("");
+        entrance = new Room("at the entrance to a great dungeon.");
+        cliff = new Room("at a steep cliff. You fall off and die.");
+        dave1 = new Room("in a large room with a strange man. he introduces himself as Dave.");
+        secretTunnel = new Room("in a narrow tunnel. It seems to go on forever.");
+        treasureS = new Room("in a small and barren room. An equally small chest is in the centre of the room.");
+        puzzle = new Room("in a the centre of a perplexing room. A series of levers lay before you, they seem to be connecvted to a numberr of lamps on the wall.");
+        spikePit = new Room("in a treacherous room. It seems like falling here would certainly spell your doom.");
+        puzzleD = new Room("in a the centre of a perplexing room. Strange carvings line the walls, and a series of levers lay before you.");
+        treasureL = new Room("in a large room, bedazzled with gems. A large chest stands proudly in the centre.");
+        treasureM = new Room("in a large room. A large chest sits the centre, eolevated on a pedestal");
+        dave2 = new Room(" in a small, cozy room. The same strange man from before is laying on a chair to the side.");
+        megaDave = new Room(" in a giant room, the walls covered in spikes. Dave stands in the middle, panting. His eyes burn with anger.");
         
         
         // initialise room exits
         entrance.setExit("north", dave1); entrance.setExit("south",cliff);
-        dave1.setExits(puzzle, secretTunnel, entrance, spikePit).setExit("north",puzzle);d1.setExit(
-        secretTunnel.setExits(treasureM, null, null, dave1);
-        treasureS.setExits(dave2, null, null, null);
-        puzzle.setExits(treasureS, null, dave1, null);
-        treasureS.setExits(dave2, null, null, null);
-        spikePit.setExits(puzzleD, dave1, null, null);
-        puzzleD.setExits(treasureL, null, null, spikePit);
-        treasureL.setExits(dave2, null, null, null);
-        treasureM.setExits(dave2, null, null, null);
-        dave2.setExits(megaDave, null, null, null);
-        megaDave.setExits(null, null, dave2, null);
+        dave1.setExit("north",puzzle);dave1.setExit("east",secretTunnel);dave1.setExit("south",entrance);dave1.setExit("west",spikePit);
+        secretTunnel.setExit("north",treasureM);secretTunnel.setExit("west",dave1);
+        treasureS.setExit("north",dave2);
+        puzzle.setExit("north",treasureS);puzzle.setExit("south",dave1);
+        treasureS.setExit("north",dave2);
+        spikePit.setExit("north",puzzleD);spikePit.setExit("east",dave1);
+        puzzleD.setExit("north",treasureL);puzzleD.setExit("west",spikePit);
+        treasureL.setExit("north",dave2);
+        treasureM.setExit("north",dave2);
+        dave2.setExit("north",megaDave);
+        megaDave.setExit("south",dave2);
         
         // start game outside
         currentRoom = entrance;  
@@ -198,9 +198,6 @@ public class Game
     
     public void printLocationInfo()
     {
-        System.out.println();
-        System.out.println("You are " + currentRoom.getDescription());
-        currentRoom.getExitsString();
-        System.out.println();
+        System.out.println(currentRoom.getLongDescription());
     }
 }

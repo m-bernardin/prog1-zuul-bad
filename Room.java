@@ -87,11 +87,15 @@ public class Room
     
     public String getExitsString()
     {
-        String exits = "Exits: ";
-        exits = (getExitsBoolean("north"))?exits+"north ":exits;
-        exits = (getExitsBoolean("east"))?exits+"east ":exits;
-        exits = (getExitsBoolean("south"))?exits+"south ":exits;
-        exits = (getExitsBoolean("west"))?exits+"west ":exits;
-        return exits;
+        String exitsString = "Exits: ";
+        for(String key : exits.keySet()){
+            exitsString = exitsString + " " + key;
+        }
+        return exitsString;
+    }
+    
+    public String getLongDescription()
+    {
+        return "\n" + "You are " + description + ".\n" + getExitsString();
     }
 }

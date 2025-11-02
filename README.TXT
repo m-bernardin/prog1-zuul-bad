@@ -45,4 +45,4 @@ q2.
 q3. a dungeon crawler, with some sort of final challenge at the end of a series of puzzles, secret passages, and interactions with other characters
 q4. see image in repo
 
-    
+q9. returns a Set which contains all the keys in a HashMap    
