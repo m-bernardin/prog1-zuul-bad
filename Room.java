@@ -19,6 +19,7 @@ public class Room
     private String description;
     private HashMap<String,Room> exits;
     private boolean containsChest;
+    private HashMap<String, Item> items;
 
     /**
      * Create a room described "description". Initially, it has no exits. 
@@ -29,6 +30,7 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<>();
+        items = new HashMap<>();
     }
 
     /**
@@ -108,5 +110,20 @@ public class Room
     public boolean containsChest()
     {
         return containsChest;
+    }
+    
+    public void addItem(String name, String description, int weight)
+    {        
+        Item item = new Item(description, weight, name);
+        items.put(name, item);
+    }
+    
+    public String getItemInfo()
+    {
+        String itemInfo = "Items: ";
+        for(String item: items.keySet()){
+            itemInfo = itemInfo + items.get(item).getItemInfo();
+        }
+        return itemInfo;
     }
 }

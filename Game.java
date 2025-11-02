@@ -51,7 +51,7 @@ public class Game
         
         
         // initialise room exits
-        entrance.setExit("north", dave1); entrance.setExit("south",cliff);
+        entrance.setExit("north", dave1); entrance.setExit("south",cliff);entrance.addItem("Sword", "A small sword. Might be useful if you encounter any dangers.", 1000);
         dave1.setExit("north",puzzle);dave1.setExit("east",secretTunnel);dave1.setExit("south",entrance);dave1.setExit("west",spikePit);
         secretTunnel.setExit("north",treasureM);secretTunnel.setExit("west",dave1);
         treasureS.setExit("north",dave2);
@@ -133,6 +133,9 @@ public class Game
                 System.out.println("This room does not contain a chest...");
             }
         }
+        else if (commandWord.equals("detailedHelp")) {
+            System.out.println(parser.detailedHelp());
+        }
 
         return wantToQuit;
     }
@@ -149,6 +152,7 @@ public class Game
         System.out.println("You wander a great dungeon.");
         System.out.println();
         System.out.println("Your command words are:");
+        System.out.println(parser.getAllCommands());
         System.out.println();
     }
 
@@ -209,5 +213,6 @@ public class Game
     public void printLocationInfo()
     {
         System.out.println(currentRoom.getLongDescription());
+        System.out.println(currentRoom.getItemInfo());
     }
 }

@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This class is part of the "World of Zuul" application. 
@@ -63,5 +63,15 @@ public class Parser
         else {
             return new Command(null, word2); 
         }
+    }
+    
+    public String getAllCommands()
+    {
+        return commands.getAllCommands();
+    }
+    
+    public String detailedHelp()
+    {
+        return commands.detailedHelp();
     }
 }

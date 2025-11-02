@@ -49,3 +49,10 @@ q9. returns a Set which contains all the keys in a HashMap
 
 q13. the Room stored in currentRoom changes
 q17. yes, because the processCommands method still checks each command by name
+
+q18. it would probably better to just make the methods static, this would mean we wouldnt have to create anh object for the commandWords class to make it work, but it would mean that adding instance methods would be more difficult
+
+part ii:
+q19. wasnt aware we had to implement it the other way
+q22. a model for how to implement interaction between the code and the user, and how to represent it, as the name suggets it implements a model (the way information is stored internally), a view (how the information is presented to the user), and the controller (how the two are linked together). its relevant to this project becuase there is a lot of complex internal information which must somehow be neatfully conveyed to the user. It could be implemented by implementing a view class which handles sending all messages to the user
+

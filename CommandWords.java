@@ -1,3 +1,4 @@
+import java.util.*;
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -13,7 +14,7 @@ public class CommandWords
 {
     // A constant array that holds all valid command words.
     private static final String[] validCommands = {
-        "go", "quit", "help", "look", "openChest"
+        "go", "quit", "help", "look", "openChest", "detailedHelp"
     };
 
     /**
@@ -42,10 +43,33 @@ public class CommandWords
     
     public String getAllCommands()
     {
-        String exits = "Exits: ";
-        for(int i = 0; i<validCommands.length; ++i){
-            exits = exits + validCommands[i];
-        }
+        String exits = "Exits:";
+        Arrays.sort(validCommands);
+        exits = Arrays.toString(validCommands);
         return exits;
+    }
+    
+    public HashMap buildCommandDescriptions()
+    {
+        HashMap<String, String> descriptions = new HashMap<>();
+        descriptions.put("go", "Takes a direction as an input and goes to the next room in that direction");
+        descriptions.put("quit", "Exits then game.");
+        descriptions.put("help", "Prints a list of available commands");
+        descriptions.put("look", "Look around the current room");
+        descriptions.put("openChest", "Opens the chest in the current room, if there is one.");
+        for(int i = 0; i<validCommands.length; ++i){
+            descriptions.putIfAbsent(validCommands[i], "no description");
+        }
+        return descriptions;
+    }
+    
+    public String detailedHelp()
+    {
+        HashMap<String, String> commands = buildCommandDescriptions();
+        String detailedHelpString = "Available commands: \n";
+        for(String command:commands.keySet()){
+            detailedHelpString = detailedHelpString + command + ": " + commands.get(command) + "\n";
+        }
+        return detailedHelpString;
     }
 }
