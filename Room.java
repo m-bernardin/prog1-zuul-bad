@@ -18,6 +18,7 @@ public class Room
 {
     private String description;
     private HashMap<String,Room> exits;
+    private boolean containsChest;
 
     /**
      * Create a room described "description". Initially, it has no exits. 
@@ -97,5 +98,15 @@ public class Room
     public String getLongDescription()
     {
         return "\n" + "You are " + description + ".\n" + getExitsString();
+    }
+    
+    public void addChest()
+    {
+        containsChest=true;
+    }
+    
+    public boolean containsChest()
+    {
+        return containsChest;
     }
 }

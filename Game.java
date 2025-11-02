@@ -122,6 +122,17 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
+        else if (commandWord.equals("look")) {
+            printLocationInfo();
+        }
+        else if (commandWord.equals("openChest")) {
+            if(currentRoom.containsChest()){
+                System.out.println("You open the chest and get a treasure");
+            }
+            else{
+                System.out.println("This room does not contain a chest...");
+            }
+        }
 
         return wantToQuit;
     }
@@ -135,11 +146,10 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("You wander a great dungeon.");
         System.out.println();
         System.out.println("Your command words are:");
-        System.out.println("   go quit help");
+        System.out.println();
     }
 
     /** 

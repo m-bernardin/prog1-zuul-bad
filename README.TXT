@@ -46,3 +46,6 @@ q3. a dungeon crawler, with some sort of final challenge at the end of a series 
 q4. see image in repo
 
 q9. returns a Set which contains all the keys in a HashMap    
+
+q13. the Room stored in currentRoom changes
+q17. yes, because the processCommands method still checks each command by name
