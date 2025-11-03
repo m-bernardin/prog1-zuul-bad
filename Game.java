@@ -57,7 +57,7 @@ public class Game
         
         // initialise room exits
         entrance.setExit("north", dave1); entrance.setExit("south",cliff);entrance.addItem("Sword", "A small sword. Might be useful if you encounter any dangers.", 1000);
-        dave1.setExit("north",puzzle);dave1.setExit("east",secretTunnel);dave1.setExit("south",entrance);dave1.setExit("west",spikePit);
+        dave1.setExit("north",puzzle);dave1.setExit("east",secretTunnel);dave1.setExit("south",entrance);dave1.setExit("west",spikePit);dave1.addItem("Potion", "A small bottle containing a mysterious red liquid.", 500);
         secretTunnel.setExit("north",treasureM);secretTunnel.setExit("west",dave1);
         treasureS.setExit("north",dave2);
         puzzle.setExit("north",treasureS);puzzle.setExit("south",dave1);
@@ -145,6 +145,12 @@ public class Game
                 break;
             case "drop":
                 dropItem(command);
+                break;
+            case "items":
+                printItems();
+                break;
+            case "drink":
+                drinkPotion(command);
                 break;
         }
 
@@ -236,5 +242,25 @@ public class Game
     {
         player.dropItem(command.getSecondWord());
         System.out.println(player.getDropMessage());
+    }
+    
+    public void printItems()
+    {
+        System.out.println(player.getHeldItems());
+    }
+    
+    public void drinkPotion(Command command)
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Drink what?");
+            return;
+        }
+        if(player.getCurrentRoom().getItemInfo().contains("Potion")){
+            player.setCarryingWeight(player.getCarryingWeight()+1000);
+            System.out.println("Strength increased! You can now carry " + player.getCarryingWeight() + "g!");
+        }
+        else{
+            System.out.println("This room doesn't contain that potion.");
+        }
     }
 }

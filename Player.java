@@ -50,9 +50,14 @@ public class Player
                 pickupMessage = "This item isn't in the room!";
             }
             else{
-                items.put(item, roomItems.get(item));
-                currentRoom.removeItem(item);
-                pickupMessage = "Picked up the " + item + "!";
+                if(roomItems.get(item).getWeight()+getCurrentWeight()>carryingWeight){
+                    pickupMessage = "No space to carry this item!";
+                }
+                else{
+                    items.put(item, roomItems.get(item));
+                    currentRoom.removeItem(item);
+                    pickupMessage = "Picked up the " + item + "!";
+                }
             }
         }
     }
@@ -64,13 +69,18 @@ public class Player
     
     public void dropItem(String item)
     {
-        if(items.get(item)==null){
-            dropMessage="You're not holding this item!";
+        if(items.isEmpty()){
+            dropMessage = "No item to drop!";
         }
         else{
-            currentRoom.dropItem(items.get(item));
-            items.remove(items.get(item));
-            dropMessage="Dropped the " + item + "!";
+            if(items.get(item)==null){
+                dropMessage="You're not holding this item!";
+            }
+            else{
+                currentRoom.dropItem(items.get(item));
+                items.remove(item);
+                dropMessage="Dropped the " + item + "!";
+            }
         }
     }
 
@@ -83,8 +93,18 @@ public class Player
     {
         String heldItems = "Items: ";
         for(String item:items.keySet()){
-            heldItems = heldItems + items.get(item) + ", ";
+            heldItems = heldItems + items.get(item).getName() + ", ";
         }
+        heldItems = heldItems + "Total Weight: " + getCurrentWeight() + "g";
         return heldItems;
+    }
+    
+    public int getCurrentWeight()
+    {
+        int weight = 0;
+        for(String item:items.keySet()){
+            weight = weight + items.get(item).getWeight();
+        }
+        return weight;
     }
 }
