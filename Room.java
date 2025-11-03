@@ -118,6 +118,11 @@ public class Room
         items.put(name, item);
     }
     
+    public void dropItem(Item item)
+    {
+        items.put(item.getName(), item);
+    }
+    
     public String getItemInfo()
     {
         String itemInfo = "Items: ";
@@ -125,5 +130,17 @@ public class Room
             itemInfo = itemInfo + items.get(item).getItemInfo();
         }
         return itemInfo;
+    }
+    
+    public HashMap getItems()
+    {
+        return items;
+    }
+    
+    public void removeItem(String item)
+    {
+        if(items.get(item)!=null){
+            items.remove(item);
+        }
     }
 }

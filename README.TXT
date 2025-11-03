@@ -68,4 +68,6 @@ q27.
     so turns out it all worked fine, i just forgot to port what i had done in the processCommand method to the goBack method
 q28. it goes to whatever the previous room before was, looping between two rooms if called many times
 
+part iii:
+q31. a way to check if all rooms were properly created would be good: it might list all rooms and all their respective information, it would also be good to be abe to see recognized commands and their functions without needing to open the game
 

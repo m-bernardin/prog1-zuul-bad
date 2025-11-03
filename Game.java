@@ -1,3 +1,4 @@
+import java.util.*;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -17,17 +18,19 @@
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
-    private Room previousRoom;
-    private Room storedRoom;
+    private Stack<Room> previousRooms; 
+    private Player player;
     
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
+        player = new Player();
         createRooms();
         parser = new Parser();
+        previousRooms = new Stack();
+        play();
     }
 
     /**
@@ -58,16 +61,16 @@ public class Game
         secretTunnel.setExit("north",treasureM);secretTunnel.setExit("west",dave1);
         treasureS.setExit("north",dave2);
         puzzle.setExit("north",treasureS);puzzle.setExit("south",dave1);
-        treasureS.setExit("north",dave2);
+        treasureS.setExit("north",dave2);treasureS.addChest();
         spikePit.setExit("north",puzzleD);spikePit.setExit("east",dave1);
         puzzleD.setExit("north",treasureL);puzzleD.setExit("west",spikePit);
-        treasureL.setExit("north",dave2);
-        treasureM.setExit("north",dave2);
+        treasureL.setExit("north",dave2);treasureL.addChest();
+        treasureM.setExit("north",dave2);treasureM.addChest();
         dave2.setExit("north",megaDave);
         megaDave.setExit("south",dave2);
         
         // start game outside
-        currentRoom = entrance;  
+        player.setCurrentRoom(entrance);
     }
 
     /**
@@ -100,11 +103,6 @@ public class Game
         printLocationInfo();
     }
 
-    /**
-     * Given a command, process (that is: execute) the command.
-     * @param command The command to be processed.
-     * @return true If the command ends the game, false otherwise.
-     */
     private boolean processCommand(Command command) 
     {
         boolean wantToQuit = false;
@@ -115,36 +113,43 @@ public class Game
         }
 
         String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
-            printHelp();
-        }
-        else if (commandWord.equals("go")) {
-            goRoom(command);
-        }
-        else if (commandWord.equals("quit")) {
-            wantToQuit = quit(command);
-        }
-        else if (commandWord.equals("look")) {
-            printLocationInfo();
-        }
-        else if (commandWord.equals("openChest")) {
-            if(currentRoom.containsChest()){
-                System.out.println("You open the chest and get a treasure");
-            }
-            else{
-                System.out.println("This room does not contain a chest...");
-            }
-        }
-        else if (commandWord.equals("detailedHelp")) {
-            System.out.println(parser.detailedHelp());
-        }
-        else if (commandWord.equals("back")) {
-            goBack();
+        switch(commandWord){
+            case "help":
+                printHelp();
+                break;
+            case "go":
+                goRoom(command);
+                break;
+            case "quit":
+                wantToQuit = quit(command);
+                break;
+            case "look":
+                printLocationInfo();
+                break;
+            case "openChest":
+                if(player.getCurrentRoom().containsChest()){
+                    System.out.println("You open the chest and get a treasure");
+                }
+                else{
+                    System.out.println("This room does not contain a chest...");
+                }
+                break;
+            case "detailedHelp":
+                System.out.println(parser.detailedHelp());
+                break;
+            case "back":
+                goBack();
+                break;
+            case "take":
+                pickupItem(command);
+                break;
+            case "drop":
+                dropItem(command);
+                break;
         }
 
         return wantToQuit;
     }
-
     // implementations of user commands:
 
     /**
@@ -175,14 +180,14 @@ public class Game
 
         String direction = command.getSecondWord();
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExits(direction);
+        Room nextRoom = player.getCurrentRoom().getExits(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
-            previousRoom = currentRoom;
-            currentRoom = nextRoom;
+            previousRooms.push(player.getCurrentRoom());
+            player.setCurrentRoom(nextRoom);
             printLocationInfo();
         }
     }
@@ -206,20 +211,30 @@ public class Game
     
     private void printLocationInfo()
     {
-        System.out.println(currentRoom.getLongDescription());
-        System.out.println(currentRoom.getItemInfo());
+        System.out.println(player.getCurrentRoom().getLongDescription());
+        System.out.println(player.getCurrentRoom().getItemInfo());
     }
     
     private void goBack()
     {
-        if(previousRoom==null){
+        if(previousRooms.empty()){
             System.out.println("Nowhere to go back to!");
         }
         else{
-            storedRoom=currentRoom;
-            currentRoom=previousRoom;
-            previousRoom=storedRoom;
+            player.setCurrentRoom(previousRooms.pop());
+            printLocationInfo();
         }
-        printLocationInfo();
+    }
+    
+    public void pickupItem(Command command)
+    {
+        player.pickupItem(command.getSecondWord());
+        System.out.println(player.getPickupMessage());
+    }
+    
+    public void dropItem(Command command)
+    {
+        player.dropItem(command.getSecondWord());
+        System.out.println(player.getDropMessage());
     }
 }

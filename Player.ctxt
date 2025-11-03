@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Player
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Player\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Player()
+comment10.params=
+comment10.target=java.lang.String\ getHeldItems()
+comment2.params=weight
+comment2.target=void\ setCarryingWeight(int)
+comment3.params=room
+comment3.target=void\ setCurrentRoom(Room)
+comment4.params=
+comment4.target=Room\ getCurrentRoom()
+comment5.params=
+comment5.target=int\ getCarryingWeight()
+comment6.params=item
+comment6.target=void\ pickupItem(java.lang.String)
+comment7.params=
+comment7.target=java.lang.String\ getPickupMessage()
+comment8.params=item
+comment8.target=void\ dropItem(java.lang.String)
+comment9.params=
+comment9.target=java.lang.String\ getDropMessage()
+numComments=11
